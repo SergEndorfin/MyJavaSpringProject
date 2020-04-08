@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+    <!--header-->
+    <header th:insert="blocks/header :: header"></header>
+
+    <!--body-content-->
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <div class="content">
+            <h1>Все пользователи:</h1>
+        </div>
+
+        <main class="container">
+            <div th:each="user : ${users}">
+                <div class="jumbotron">
+                    <h1 th:text="'Пользователь: ' + ${user.username}" />
+                    <p class="lead" th:text="'Email: ' + ${user.email}"/>
+                    <p class="lead" th:text="'Роль на сайте: ' + ${user.roles}"/>
+                    <a class="btn btn-lg btn-primary" th:href="@{/admin/user-} + ${user.id}">Все отзывы пользователя >></a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div sec:authorize="!hasAuthority('ADMIN')">
+        <div class="content">
+            <h1>Доступ только у админа!</h1>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer th:insert="blocks/footer :: footer"></footer>
+
+</body>
+</html>

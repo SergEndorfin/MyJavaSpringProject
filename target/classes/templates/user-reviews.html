@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Все отзывы пользователя</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<!--head-->
+<header th:insert="blocks/header :: header"></header>
+
+<!--body-content-->
+<div>
+
+    <section class="jumbotron text-center">
+        <div class="container">
+
+            <h1>Все отзывы пользователя:</h1>
+            <hr>
+
+            <div th:each="rev : ${userReviews}">
+                <div class="row">
+                    <div class="width10">
+                        <img src="/user_smile.png" alt="Тут должна быть картинка" width="100px" height="100px">
+                    </div>
+                    <div class="width70">
+                        <div class="col-md-6 mb-3">
+                            <p class="lead">
+                            <h2 th:text="${rev.title}" />
+                            <p th:text="${rev.text}" />
+                            <p><b>Автор: </b><span th:text="${rev.author.username}" /></p>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="width20">
+                        <a th:href="@{/reviews/} + ${rev.id}" class="btn btn-secondary my-2">Подробнее</a><br>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <hr>
+
+            <h1>Добавить отзыв</h1><br>
+            <form th:action="@{/reviews-add}" method="post">
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">(^_^)</span>
+                        </div>
+                        <input type="text" name="title" class="form-control" id="username" placeholder="Введите заголовок">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">(^_^)</span>
+                        </div>
+                        <textarea name="text" placeholder="Введите Ваш отзыв" class="form-control"></textarea><br>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary my-2">Добавить</button>
+            </form>
+
+        </div>
+    </section>
+</div>
+
+<!--footer-->
+<footer th:insert="blocks/footer :: footer"></footer>
+
+</body>
+</html>

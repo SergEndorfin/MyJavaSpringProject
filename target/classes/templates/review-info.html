@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Отзыв №' + ${review[0].id}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <!--header-->
+    <header th:insert="blocks/header :: header"></header>
+
+    <!--body-content-->
+    <div th:each="rev : ${review}">
+        <div class="content center-align">
+            <h1 th:text="'Страница &quot;' + ${rev.title} + '&quot; работает'" />
+        </div>
+        <div>
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1>Текущий отзыв:</h1><br>
+                    <h2 th:text="${rev.title}" />
+                    <p th:text="${rev.text}" />
+                    <p><b>Автор: </b><span th:text="${rev.author.username}" /></p>
+                    <a th:href="@{/reviews/} + ${rev.id} + @{/update}" class="btn btn-primary my-2">Редактировать</a>
+
+                    <form th:action="@{/reviews/} + ${rev.id} + @{/delete}" method="post">
+                        <button type="submit" class="btn btn-danger my-2">Удалить</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer th:insert="blocks/footer :: footer"></footer>
+
+</body>
+</html>
